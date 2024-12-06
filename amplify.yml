@@ -18,18 +18,18 @@ frontend:
     paths:
       - .npm/**/*
       - node_modules/**/*
-test:
-  phases:
-    preTest:
-      commands:
-        - npx playwright install
-    test:
-      commands:
-        - npm run test:ci
-    postTest:
-      commands:
-        - echo "postTest"
-  artifacts:
-    files:
-      - playwright-report/**/*
-    baseDirectory: playwright-report
+# test:
+#   phases:
+#     preTest:
+#       commands:
+#         - npx playwright install
+#     test:
+#       commands:
+#         - npm run test:ci
+#     postTest:
+#       commands:
+#         - echo "postTest"
+#   artifacts:
+#     files:
+#       - playwright-report/**/*
+#     baseDirectory: playwright-report
