@@ -41,6 +41,22 @@ function App() {
         }}
       />
       <button onClick={createTodo}>+ new</button>
+      <button
+        style={{
+          marginTop: '8px',
+          backgroundColor: 'red',
+          color: 'white',
+          padding: '8px',
+          borderRadius: '4px',
+        }}
+        onClick={() => {
+          todos.forEach(async (todo) => {
+            await client.models.Todo.delete(todo);
+          });
+        }}
+      >
+        Delete All Todos
+      </button>
       <ul>
         {todos.map((todo) => (
           <li key={todo.id}>{todo.content}</li>
@@ -53,11 +69,6 @@ function App() {
           Review next step of this tutorial.
         </a>
       </div>
-      <button onClick={() => {
-        todos.forEach(async (todo) => {
-          await client.models.Todo.delete(todo);
-        });
-      }}>Delete All</button>
     </main>
   );
 }
