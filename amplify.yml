@@ -19,15 +19,17 @@ frontend:
       - .npm/**/*
       - node_modules/**/*
 test:
-  appRoot: e2e
   phases:
     preTest:
       commands:
-        - npm ci
+        - echo "preTest"
     test:
       commands:
-        - 'npm run test:ci'
+        - npm run test:ci
+    postTest:
+      commands:
+        - echo "postTest"
   artifacts:
-    baseDirectory: playwright-report
     files:
-      - '**/*
+      - playwright-report/**/*
+    baseDirectory: playwright-report
