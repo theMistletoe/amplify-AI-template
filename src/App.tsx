@@ -6,6 +6,7 @@ const client = generateClient<Schema>();
 
 function App() {
   const [todos, setTodos] = useState<Array<Schema["Todo"]["type"]>>([]);
+  const [inputValue, setInputValue] = useState("");
 
   useEffect(() => {
     client.models.Todo.observeQuery().subscribe({
@@ -14,12 +15,31 @@ function App() {
   }, []);
 
   function createTodo() {
-    client.models.Todo.create({ content: window.prompt("Todo content") });
+    client.models.Todo.create({ content: inputValue });
+    setInputValue("");
+  }
+
+  function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setInputValue(e.target.value);
   }
 
   return (
     <main>
       <h1>My todos</h1>
+      <input 
+        type="text" 
+        value={inputValue} 
+        onChange={handleInputChange}
+        placeholder="Add a new todo"
+        style={{
+          padding: '8px',
+          marginRight: '8px',
+          borderRadius: '4px',
+          border: '1px solid #ccc',
+          fontSize: '16px',
+          marginBottom: '16px',
+        }}
+      />
       <button onClick={createTodo}>+ new</button>
       <ul>
         {todos.map((todo) => (
@@ -33,6 +53,11 @@ function App() {
           Review next step of this tutorial.
         </a>
       </div>
+      <button onClick={() => {
+        todos.forEach(async (todo) => {
+          await client.models.Todo.delete(todo);
+        });
+      }}>Delete All</button>
     </main>
   );
 }
