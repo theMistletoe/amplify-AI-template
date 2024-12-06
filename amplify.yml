@@ -22,7 +22,7 @@ test:
   phases:
     preTest:
       commands:
-        - echo "preTest"
+        - npx playwright install
     test:
       commands:
         - npm run test:ci
