@@ -18,3 +18,9 @@ frontend:
     paths:
       - .npm/**/*
       - node_modules/**/*
+e2e:
+  phases:
+    build:
+      commands:
+        - npm ci --cache .npm --prefer-offline
+        - npm run test:ci
